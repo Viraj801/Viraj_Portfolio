@@ -1,0 +1,804 @@
+/* ==========================================================================
+   Visual polish + motion layer
+   Loaded after Stylesheet.css, so these rules refine the base design.
+   Scroll-reveal states only apply when the .js class is on <html>,
+   so the page stays fully readable if JavaScript is unavailable.
+   ========================================================================== */
+
+:root {
+    --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+    --ink-deep: #0f2a22;
+    --leaf: #7ea32c;
+    --shadow-soft: 0 18px 40px rgba(24, 55, 45, 0.1);
+    --shadow-lift: 0 26px 50px rgba(24, 55, 45, 0.16);
+}
+
+::selection {
+    background: var(--lime);
+    color: var(--ink);
+}
+
+a:focus-visible,
+button:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 3px;
+}
+
+.intro a:focus-visible,
+footer a:focus-visible,
+.to-top:focus-visible {
+    outline-color: var(--lime);
+}
+
+/* --------------------------------------------------------------------------
+   Scroll progress bar
+   -------------------------------------------------------------------------- */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--leaf), var(--lime));
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+    pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   Header
+   -------------------------------------------------------------------------- */
+header {
+    transition: box-shadow 300ms var(--ease), background-color 300ms var(--ease);
+}
+
+header.is-scrolled {
+    background: rgba(244, 245, 240, 0.98);
+    box-shadow: 0 10px 30px rgba(24, 55, 45, 0.08);
+}
+
+.navitems.navbrand {
+    margin-right: auto;
+}
+
+.navbrand a {
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+    color: var(--ink);
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+}
+
+.navbrand a span {
+    color: var(--leaf);
+    transition: transform 300ms var(--ease);
+}
+
+.navbrand a:hover span {
+    transform: scale(1.5);
+}
+
+.navitems li a {
+    position: relative;
+}
+
+.navitems li a::after {
+    content: "";
+    position: absolute;
+    right: 16px;
+    bottom: 7px;
+    left: 16px;
+    height: 2px;
+    background: var(--ink);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 300ms var(--ease);
+}
+
+.navitems li a.active::after {
+    transform: scaleX(1);
+}
+
+.navitems li a:hover::after,
+.navitems li a:focus-visible::after {
+    background: var(--lime);
+    transform: scaleX(1);
+}
+
+/* --------------------------------------------------------------------------
+   Hero
+   -------------------------------------------------------------------------- */
+.intro {
+    overflow: hidden;
+    isolation: isolate;
+}
+
+/* faint engineering grid */
+.intro::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 56px 56px;
+    -webkit-mask-image: radial-gradient(ellipse at 72% 38%, #000 0%, transparent 70%);
+    mask-image: radial-gradient(ellipse at 72% 38%, #000 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.hero-orbs {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.hero-orbs span {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.6;
+    transition: translate 700ms var(--ease);
+    animation: float 14s ease-in-out infinite;
+}
+
+.hero-orbs span:nth-child(1) {
+    top: -90px;
+    right: 6%;
+    width: 440px;
+    height: 440px;
+    background: radial-gradient(circle, rgba(215, 243, 106, 0.55), transparent 70%);
+    translate: calc(var(--px, 0) * -36px) calc(var(--py, 0) * -36px);
+}
+
+.hero-orbs span:nth-child(2) {
+    right: 28%;
+    bottom: -90px;
+    width: 360px;
+    height: 360px;
+    background: radial-gradient(circle, rgba(64, 168, 122, 0.55), transparent 70%);
+    translate: calc(var(--px, 0) * 24px) calc(var(--py, 0) * 24px);
+    animation-delay: -5s;
+}
+
+.hero-orbs span:nth-child(3) {
+    bottom: 18%;
+    left: -80px;
+    width: 280px;
+    height: 280px;
+    background: radial-gradient(circle, rgba(215, 243, 106, 0.28), transparent 70%);
+    translate: calc(var(--px, 0) * 48px) calc(var(--py, 0) * 48px);
+    animation-delay: -9s;
+}
+
+.intro::before {
+    content: "SOFTWARE ENGINEER  ·  BHOPAL, INDIA";
+    position: relative;
+    z-index: 2;
+    padding: 9px 16px;
+    border: 1px solid rgba(215, 243, 106, 0.35);
+    border-radius: 999px;
+    background: rgba(215, 243, 106, 0.08);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+}
+
+.intro h1,
+.intro p,
+.intro .enqueryForm {
+    position: relative;
+    z-index: 2;
+}
+
+.intro::before,
+.intro h1,
+.intro p,
+.intro .enqueryForm {
+    opacity: 0;
+    animation: fadeUp 900ms var(--ease) forwards;
+}
+
+.intro::before { animation-delay: 100ms; }
+.intro h1 { animation-delay: 260ms; }
+.intro p { animation-delay: 440ms; }
+.intro .enqueryForm { animation-delay: 620ms; }
+
+.intro h1 .accent {
+    background: linear-gradient(90deg, var(--lime), #ffffff, var(--lime));
+    background-size: 220% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    animation: shine 7s linear infinite;
+}
+
+.intro .enqueryForm {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 6px;
+}
+
+.intro .btn_get_two {
+    box-shadow: 0 10px 30px rgba(215, 243, 106, 0.25);
+}
+
+.intro .btn_get_two:hover {
+    box-shadow: 0 14px 36px rgba(215, 243, 106, 0.4);
+}
+
+.intro .btn_get_two i {
+    animation: nudge 1.8s ease-in-out infinite;
+}
+
+.intro .btn_ghost {
+    display: inline-flex;
+    align-items: center;
+    padding: 15px 22px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.04);
+    color: #ffffff;
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 160ms ease, border-color 200ms ease, color 200ms ease, background-color 200ms ease;
+}
+
+.intro .btn_ghost:hover {
+    transform: translateY(-2px);
+    border-color: var(--lime);
+    background: rgba(215, 243, 106, 0.08);
+    color: var(--lime);
+}
+
+.scroll-hint {
+    position: absolute;
+    bottom: 34px;
+    left: max(8vw, calc((100vw - 1240px) / 2));
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-decoration: none;
+    opacity: 0;
+    animation: fadeIn 900ms var(--ease) 1100ms forwards;
+}
+
+.scroll-hint:hover {
+    color: var(--lime);
+}
+
+.scroll-hint .mouse {
+    position: relative;
+    width: 22px;
+    height: 36px;
+    border: 2px solid rgba(255, 255, 255, 0.55);
+    border-radius: 12px;
+}
+
+.scroll-hint .mouse::after {
+    content: "";
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    width: 3px;
+    height: 7px;
+    margin-left: -1.5px;
+    border-radius: 2px;
+    background: var(--lime);
+    animation: wheel 1.8s ease-in-out infinite;
+}
+
+/* --------------------------------------------------------------------------
+   About
+   -------------------------------------------------------------------------- */
+.about-me-text .section-heading {
+    margin-bottom: 22px;
+}
+
+.about-me img {
+    border-radius: 10px;
+    box-shadow: 14px 14px 0 var(--lime), var(--shadow-soft);
+    transition: transform 400ms var(--ease), box-shadow 400ms var(--ease);
+}
+
+.about-me img:hover {
+    transform: translate(-5px, -5px);
+    box-shadow: 20px 20px 0 var(--lime), var(--shadow-lift);
+}
+
+.stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px 40px;
+    margin-top: 34px;
+    padding-top: 26px;
+    border-top: 1px solid var(--line);
+}
+
+.stat strong {
+    display: block;
+    color: var(--ink);
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+}
+
+.stat span {
+    display: block;
+    margin-top: 8px;
+    color: var(--muted);
+    font-size: 0.85rem;
+}
+
+/* --------------------------------------------------------------------------
+   Section headings
+   -------------------------------------------------------------------------- */
+.section-heading > span::after {
+    content: "";
+    display: inline-block;
+    width: 44px;
+    height: 2px;
+    margin-left: 14px;
+    background: currentColor;
+    vertical-align: middle;
+    opacity: 0.7;
+}
+
+.js .section-heading > span::after {
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 900ms var(--ease) 250ms;
+}
+
+.js .section-heading.is-in > span::after {
+    transform: scaleX(1);
+}
+
+/* --------------------------------------------------------------------------
+   Project cards
+   -------------------------------------------------------------------------- */
+.project-card {
+    position: relative;
+    overflow: hidden;
+    transition: transform 350ms var(--ease), box-shadow 350ms var(--ease), border-color 350ms var(--ease);
+}
+
+.project-card > * {
+    position: relative;
+}
+
+.project-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), rgba(215, 243, 106, 0.3), transparent 45%);
+    opacity: 0;
+    transition: opacity 350ms ease;
+    pointer-events: none;
+}
+
+.project-card::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--ink), var(--lime));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 500ms var(--ease);
+}
+
+.project-card:hover {
+    transform: translateY(-6px);
+    border-color: #a2bd54;
+    box-shadow: var(--shadow-lift);
+}
+
+.project-card:hover::before {
+    opacity: 1;
+}
+
+.project-card:hover::after {
+    transform: scaleX(1);
+}
+
+.project-card:hover .project-number {
+    color: var(--ink);
+}
+
+.project-number {
+    transition: color 300ms ease;
+}
+
+.tag-list span {
+    transition: background-color 200ms ease, color 200ms ease, transform 200ms var(--ease);
+}
+
+.tag-list span:hover {
+    background: var(--ink);
+    color: var(--lime);
+    transform: translateY(-2px);
+}
+
+/* --------------------------------------------------------------------------
+   Experience timeline
+   -------------------------------------------------------------------------- */
+.experience-list {
+    position: relative;
+    gap: 18px;
+    padding-left: 36px;
+}
+
+.experience-list::before,
+.experience-list::after {
+    content: "";
+    position: absolute;
+    top: 10px;
+    bottom: 10px;
+    left: 7px;
+    width: 2px;
+    border-radius: 2px;
+}
+
+.experience-list::before {
+    background: rgba(24, 55, 45, 0.15);
+}
+
+.experience-list::after {
+    background: linear-gradient(var(--ink), var(--leaf));
+    transform: scaleY(var(--progress, 0));
+    transform-origin: top;
+}
+
+.experience-item {
+    position: relative;
+    transition: transform 350ms var(--ease), box-shadow 350ms var(--ease), border-color 350ms var(--ease);
+}
+
+.experience-item:hover {
+    transform: translateX(6px);
+    border-color: #a2bd54;
+    box-shadow: var(--shadow-soft);
+}
+
+.experience-item::before {
+    content: "";
+    position: absolute;
+    top: 34px;
+    left: -36px;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(24, 55, 45, 0.35);
+    border-radius: 50%;
+    background: var(--paper);
+    transition: background-color 500ms ease, border-color 500ms ease, box-shadow 500ms ease;
+}
+
+.experience-item.is-in::before {
+    border-color: var(--ink);
+    background: var(--lime);
+    box-shadow: 0 0 0 6px rgba(215, 243, 106, 0.4);
+}
+
+.experience-item:first-child.is-in::before {
+    animation: pulse 2.4s ease-out infinite;
+}
+
+/* --------------------------------------------------------------------------
+   Skills
+   -------------------------------------------------------------------------- */
+.skills-grid {
+    gap: 18px;
+}
+
+.skill-group {
+    padding: 26px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: var(--white);
+    transition: transform 350ms var(--ease), box-shadow 350ms var(--ease), border-color 350ms var(--ease);
+}
+
+.skill-group:hover {
+    transform: translateY(-4px);
+    border-color: #a2bd54;
+    box-shadow: var(--shadow-soft);
+}
+
+.skill-group h3 {
+    margin-bottom: 14px;
+}
+
+.chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.chip {
+    padding: 6px 12px;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    background: #edf1e8;
+    color: #35502a;
+    font-size: 0.82rem;
+    font-weight: 600;
+    line-height: 1.4;
+    transition: background-color 200ms ease, color 200ms ease, transform 200ms var(--ease),
+        opacity 500ms var(--ease), scale 500ms var(--ease);
+}
+
+.chip:hover {
+    background: var(--ink);
+    color: var(--lime);
+    transform: translateY(-2px);
+}
+
+.js .skill-group:not(.is-in) .chip {
+    opacity: 0;
+    scale: 0.85;
+}
+
+.js .skill-group.is-in:not(.reveal-done) .chip {
+    transition-delay: 0ms, 0ms, 0ms, calc(var(--i, 0) * 28ms + 200ms), calc(var(--i, 0) * 28ms + 200ms);
+}
+
+/* "Currently learning" gets a feature treatment */
+.skill-group:last-child {
+    grid-column: 1 / -1;
+    border-color: var(--ink);
+    background: var(--ink);
+}
+
+.skill-group:last-child h3 {
+    color: var(--white);
+}
+
+.skill-group:last-child h3::after {
+    content: "";
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    margin-left: 12px;
+    border-radius: 50%;
+    background: var(--lime);
+    vertical-align: middle;
+    animation: blink 1.8s ease-in-out infinite;
+}
+
+.skill-group:last-child .chip {
+    background: rgba(255, 255, 255, 0.08);
+    color: #e6f4b0;
+}
+
+.skill-group:last-child .chip:hover {
+    background: var(--lime);
+    color: var(--ink);
+}
+
+/* --------------------------------------------------------------------------
+   Footer
+   -------------------------------------------------------------------------- */
+.new_footer_top .f_social_icon a {
+    transition: transform 250ms var(--ease), background-color 200ms ease, border-color 200ms ease, color 200ms ease;
+}
+
+.new_footer_top .f_social_icon a:hover {
+    transform: translateY(-5px) rotate(-6deg);
+}
+
+.new_footer_top .company_widget > a {
+    background: linear-gradient(currentColor, currentColor) no-repeat 0 100% / 0 2px;
+    transition: background-size 350ms var(--ease);
+}
+
+.new_footer_top .company_widget > a:hover {
+    background-size: 100% 2px;
+    text-decoration: none;
+}
+
+/* --------------------------------------------------------------------------
+   Back to top
+   -------------------------------------------------------------------------- */
+.to-top {
+    position: fixed;
+    right: 22px;
+    bottom: 22px;
+    z-index: 50;
+    display: grid;
+    width: 46px;
+    height: 46px;
+    place-items: center;
+    border: 0;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--lime);
+    box-shadow: 0 12px 28px rgba(24, 55, 45, 0.3);
+    cursor: pointer;
+    opacity: 0;
+    translate: 0 14px;
+    pointer-events: none;
+    transition: opacity 300ms ease, translate 300ms var(--ease), background-color 200ms ease, color 200ms ease;
+}
+
+.to-top.show {
+    opacity: 1;
+    translate: 0 0;
+    pointer-events: auto;
+}
+
+.to-top:hover {
+    background: var(--lime);
+    color: var(--ink);
+}
+
+/* --------------------------------------------------------------------------
+   Scroll reveal (only active when JS has added .js to <html>)
+   -------------------------------------------------------------------------- */
+.js :is(.section-heading, .about-me-text, .about-me img, .stat, .project-card, .experience-item, .skill-group, .f_widget) {
+    opacity: 0;
+    translate: 0 30px;
+}
+
+.js :is(.section-heading, .about-me-text, .about-me img, .stat, .project-card, .experience-item, .skill-group, .f_widget).is-in {
+    opacity: 1;
+    translate: 0 0;
+}
+
+.js :is(.section-heading, .about-me-text, .about-me img, .stat, .project-card, .experience-item, .skill-group, .f_widget):not(.reveal-done) {
+    transition: opacity 800ms var(--ease) var(--d, 0ms), translate 800ms var(--ease) var(--d, 0ms);
+}
+
+/* --------------------------------------------------------------------------
+   Keyframes
+   -------------------------------------------------------------------------- */
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(26px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+
+@keyframes float {
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+    50% { transform: translate3d(0, -34px, 0) scale(1.08); }
+}
+
+@keyframes shine {
+    to { background-position: 220% center; }
+}
+
+@keyframes nudge {
+    0%, 100% { translate: 0 0; }
+    50% { translate: 0 4px; }
+}
+
+@keyframes wheel {
+    0% { opacity: 1; transform: translateY(0); }
+    70%, 100% { opacity: 0; transform: translateY(12px); }
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(215, 243, 106, 0.8); }
+    100% { box-shadow: 0 0 0 14px rgba(215, 243, 106, 0); }
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.25; }
+}
+
+/* --------------------------------------------------------------------------
+   Responsive tweaks
+   -------------------------------------------------------------------------- */
+@media (max-width: 760px) {
+    .navitems.navbrand {
+        display: none;
+    }
+
+    .scroll-hint {
+        display: none;
+    }
+
+    .intro .enqueryForm {
+        gap: 10px;
+    }
+
+    .about-me img {
+        box-shadow: 10px 10px 0 var(--lime), var(--shadow-soft);
+    }
+
+    .stats {
+        gap: 14px 28px;
+    }
+
+    .stat strong {
+        font-size: 2.1rem;
+    }
+
+    .skill-group {
+        padding: 22px;
+    }
+
+    .experience-list {
+        padding-left: 30px;
+    }
+
+    .experience-item::before {
+        left: -30px;
+    }
+
+    /* removes leftover space reserved for the old footer animation */
+    .new_footer_top {
+        padding: 56px 0 48px;
+    }
+
+    .to-top {
+        right: 16px;
+        bottom: 16px;
+    }
+}
+
+@media (hover: none) {
+    .project-card:hover,
+    .experience-item:hover,
+    .skill-group:hover {
+        transform: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .intro::before,
+    .intro h1,
+    .intro p,
+    .intro .enqueryForm,
+    .scroll-hint {
+        opacity: 1;
+        animation: none;
+    }
+
+    .hero-orbs span,
+    .intro h1 .accent,
+    .intro .btn_get_two i,
+    .experience-item:first-child.is-in::before,
+    .skill-group:last-child h3::after {
+        animation: none;
+    }
+
+    .js :is(.section-heading, .about-me-text, .about-me img, .stat, .project-card, .experience-item, .skill-group, .f_widget) {
+        opacity: 1;
+        translate: none;
+    }
+
+    .js .skill-group:not(.is-in) .chip {
+        opacity: 1;
+        scale: 1;
+    }
+
+    .js .section-heading > span::after {
+        transform: scaleX(1);
+    }
+}

@@ -6,7 +6,13 @@
     <title>Viraj Singh Dangi | Software Engineer</title>
     <meta name="description" content="Viraj Singh Dangi is a software engineer and full-stack .NET developer specializing in APIs, cloud services, and enterprise applications.">
     <link rel="stylesheet" href="Stylesheet.css">
+    <link rel="stylesheet" href="animations.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#18372d">
+    <meta property="og:title" content="Viraj Singh Dangi | Software Engineer">
+    <meta property="og:description" content="Software engineer and full-stack .NET developer specializing in APIs, cloud services, and enterprise applications.">
+    <meta property="og:type" content="website">
+    <script>document.documentElement.classList.add('js');</script>
 
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
@@ -23,10 +29,14 @@
 </head>
 
 <body>
+    <div class="scroll-progress" aria-hidden="true"></div>
     <!-- Header Section -->
     <header>
         <div class="navItemLists">
             <ul>
+                <div class="navitems navbrand">
+                    <a href="#Home" aria-label="Viraj Singh Dangi, back to top">Viraj<span>.</span></a>
+                </div>
                 <div class="navitems">
                     
                     <li class="f-title f_600 t_color f_size_18"><a name="Home" href="#Home">Home </a> </li>
@@ -56,19 +66,30 @@
     <!-- Start section  -->
     <section class="Home" id="Home">
         <div class="intro">
-            <h1>Viraj Singh Dangi</h1>
+            <div class="hero-orbs" aria-hidden="true"><span></span><span></span><span></span></div>
+            <h1>Viraj Singh <span class="accent">Dangi</span></h1>
             <p>Software Engineer · Full Stack .NET Developer · Cloud &amp; API Enthusiast</p>
             <!-- <button>Learn More</button> -->
             <div class="enqueryForm">
-                <a class="btn btn_get btn_get_two" href="#About">Learn More <i class="fas fa-arrow-down" aria-hidden="true"></i></a>
+                <a class="btn btn_get btn_get_two" href="#Projects">View My Work <i class="fas fa-arrow-down" aria-hidden="true"></i></a>
+                <a class="btn_ghost" href="#Contact">Get in Touch</a>
             </div>
+            <a class="scroll-hint" href="#About" aria-label="Scroll to the About section"><span class="mouse" aria-hidden="true"></span>SCROLL</a>
         </div>
     </section>
     <section class="aboutsection container" id="About">
         <div class="about-me">
             <div class="about-me-text">
-                <h2>About Me</h2>
+                <div class="section-heading">
+                    <span>WHO I AM</span>
+                    <h2>About Me</h2>
+                </div>
                 <p>I’m a software engineer from Bhopal, India, with 5+ years of professional experience building reliable, scalable applications. My work spans ASP.NET Core APIs, full-stack development, cloud services, and data-driven systems. I care about clean, maintainable code and solving practical problems.</p>
+                <div class="stats">
+                    <div class="stat"><strong data-count="5" data-suffix="+">5+</strong><span>Years of experience</span></div>
+                    <div class="stat"><strong data-count="4">4</strong><span>Featured projects</span></div>
+                    <div class="stat"><strong data-count="2">2</strong><span>Companies</span></div>
+                </div>
             </div>
             <!-- <img src="https://images.unsplash.com/photo-1596495578065-6e0763fa1178?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=871&q=80"
                 alt="me"> -->
@@ -235,6 +256,9 @@
         </div>
     </footer>
     <!-- End Footer Section -->
+
+    <button class="to-top" type="button" aria-label="Back to top"><i class="fas fa-arrow-up" aria-hidden="true"></i></button>
+    <script src="Script.js" defer></script>
 </body>
 
 </html>
