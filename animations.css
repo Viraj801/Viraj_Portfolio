@@ -310,6 +310,11 @@ header.is-scrolled {
 }
 
 .about-me img {
+    width: 38%;
+    max-width: 420px;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    object-position: center 18%;
     border-radius: 10px;
     box-shadow: 14px 14px 0 var(--lime), var(--shadow-soft);
     transition: transform 400ms var(--ease), box-shadow 400ms var(--ease);
