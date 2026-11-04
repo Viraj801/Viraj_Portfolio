@@ -378,6 +378,11 @@ header.is-scrolled {
 /* --------------------------------------------------------------------------
    Project cards
    -------------------------------------------------------------------------- */
+/* with an odd number of projects, let the last card span both columns */
+.project-grid > .project-card:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+}
+
 .project-card {
     position: relative;
     overflow: hidden;
